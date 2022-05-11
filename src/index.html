@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Origin Financial frontend challenge page."
+    />
+    <link rel="icon" href="./assets/favicon.webp" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./index.min.css" />
+    <script
+      defer
+      src="https://unpkg.com/@alpinejs/mask@3.x.x/dist/cdn.min.js"
+    ></script>
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js" async></script>
+    <script src="./index.min.js" async></script>
+    <title>Origin Financial - Frontend Challenge</title>
+  </head>
+  <body>
+    <header class="p-16 m-auto">
+      <image
+        src="./assets/logo.svg"
+        width="75"
+        height="24"
+        alt="Origin Financial Logo"
+      />
+    </header>
+
+    <p id="saving-goal">Let's plan your <strong>saving goal</strong>.</p>
+
+    <main id="main-container" class="bg-white br-8 b-shadow m-auto">
+      <div id="title-container" class="d-grid gap-1">
+        <image
+          src="./assets/house.svg"
+          width="64"
+          height="64"
+          alt="House Icon"
+        />
+        <div class="d-grid">
+          <span id="main-title">Buy a house</span>
+          <span id="main-subtitle">Saving goal</span>
+        </div>
+      </div>
+
+      <section x-data="initCalculator()" class="d-grid">
+        <div id="input-container" class="d-grid">
+          <div class="mw-30 d-grid gap-1 p-10 no-p-left no-p-right br-4">
+            <label class="fs-14" for="amount"> Total amount </label>
+            <span class="InputContainer p-16 br-4">
+              <image
+                src="./assets/dollar.svg"
+                width="24"
+                height="24"
+                alt="Dollar Icon"
+              />
+              <input
+                type="text"
+                id="amount"
+                x-model="money"
+                x-mask:dynamic="$money($input)"
+                class="Input no-outline no-border"
+              />
+            </span>
+          </div>
+
+          <div class="mw-30 d-grid gap-1 p-10 no-p-left no-p-right br-4">
+            <span class="fs-14">Reach goal by</span>
+            <div
+              id="date-container"
+              class="InputContainer p-16 br-4 space-between no-p-left no-p-right"
+            >
+              <button
+                id="decrease-month"
+                class="btn grows"
+                aria-label="Decrease Month By One"
+                @click="changeMonth(-1)"
+                @keydown.left.window="changeMonth(-1)"
+              >
+                <image
+                  src="./assets/chevron.svg"
+                  width="48"
+                  height="56"
+                  alt="Chevron Icon Left"
+                />
+              </button>
+              <div id="date-display">
+                <strong x-text="monthLiterals[currentMonth].literal"></strong>
+                <span id="year-text" x-text="currentYear"></span>
+              </div>
+              <button
+                id="increase-month"
+                class="btn grows"
+                aria-label="Increase Month By One"
+                @click="changeMonth(1)"
+                @keydown.right.window="changeMonth(1)"
+              >
+                <image
+                  id="right-chevron"
+                  src="./assets/chevron.svg"
+                  width="48"
+                  height="56"
+                  alt="Chevron Icon Right"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="InputContainer d-grid br-8 mw-30 mt-16 rows-2 no-gap">
+          <div class="d-flex space-around align-center">
+            <span class="fs-18">Monthly amount</span>
+            <span id="monthly-amount" x-text="`$${payments}`"></span>
+          </div>
+
+          <div id="results-text" class="br-8 p-8">
+            <p>
+              You're planning
+              <strong x-text="`${monthDiff} monthly deposits`"></strong>
+              to reach your
+              <strong x-text="`$${money}`"></strong>
+              goal by
+              <strong x-text="formatReachDate()"></strong>.
+            </p>
+          </div>
+        </div>
+
+        <button aria-label="Confirm" id="confirm-btn" class="p-16 mt-16">
+          Confirm
+        </button>
+      </section>
+    </main>
+    <a
+      href="./javascript.html"
+      data-jslicense="1"
+      style="position: fixed; bottom: 0"
+      >JavaScript license information</a
+    >
+  </body>
+</html>
